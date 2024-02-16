@@ -10,14 +10,14 @@ from langchain_core.runnables import RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 
 llm = LlamaCpp(
-    model_path="PATH",
+    model_path="/llama.cpp/models/phoenix.Q5_K_M.gguf",
     max_tokens=2000,
     n_ctx=1024,
     callback_manager=CallbackManager([StreamingStdOutCallbackHandler()]),
     verbose=True,
 )
 
-loader = PyPDFLoader("PDF")
+loader = PyPDFLoader("/document.pdf")
 docs = loader.load()
 
 text_splitter = RecursiveCharacterTextSplitter(
@@ -45,6 +45,6 @@ chain = (
     | StrOutputParser()
 )
 
-chain.invoke("QUESTION")
+chain.invoke("Warum ist die Banane krumm?")
 
 
